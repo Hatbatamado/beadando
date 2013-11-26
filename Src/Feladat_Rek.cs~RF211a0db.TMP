@@ -12,7 +12,6 @@ namespace beadando
         string elag_in = ""; //elágazások indexe
         string[] elag_t; //elágazások tömbje
         int elag_sor = 0; //elágazások tömbjének sorszáma
-        string[] vegig; //vasból aranyba eljutó elemek indexének a tömbje
         Bejegyzes[] bejegy;
 
         public Feladat_Rek(int keresett_anyag, Bejegyzes[] bejegy)
@@ -42,26 +41,26 @@ namespace beadando
                         if (elag_in2.Length > 0)
                         {
                             elag_in = elag_in.Substring(0, elag_in.LastIndexOf(','));
-                            Tomb_Eredmeny(elag_in);
+                            ////Tomb_Eredmeny(elag_in);
                             Rekur(bejegy[Convert.ToInt32(elag_in2[0])].Veg_anyag); //elágazás első elemével megyünk tovább
                         }
                     }
                     else if (db == 1) //ha 1 db van, akkor ezzel megyünk tovább
                     {
                         elag_in = elag_in.Substring(0, elag_in.LastIndexOf(','));
-                        Tomb_Eredmeny(elag_in);
+                        ////Tomb_Eredmeny(elag_in);
                         Rekur(bejegy[Convert.ToInt32(elag_in)].Veg_anyag);
                     }
                     else
                     {
-                        Tomb_Eredmeny_Torles(1);
+                        ////Tomb_Eredmeny_Torles(1);
                         Tomb_torol();
                     }
                 }
                 else
                 {
                     //0 (arany) megtalálva
-                    Tomb_Eredmeny_Torles(0);
+                    ////Tomb_Eredmeny_Torles(0);
                     Tomb_torol();
                 }
             }
@@ -72,7 +71,6 @@ namespace beadando
             }*/
         }
 
-        #region Müveletek az elágazások tömbjével
         private string[] Tomb(string[] tomb, int index, string elemek) //tömbhöz új elem hozzáadása és a végén ez a tömb használata
         {
             string[] segedtomb;
@@ -154,64 +152,5 @@ namespace beadando
 
             return segedtomb;
         }
-        #endregion
-
-        #region Müveletek az eredmény tömbjével
-        private void Tomb_Eredmeny(string indexek)
-        {
-            string[] seged2 = indexek.Split(',');
-            if (vegig == null)
-            {
-                if (seged2.Length <= 1)
-                {
-                    vegig = new string[1];
-                    vegig[0] = indexek;
-                }
-                else
-                {
-                    vegig = new string[seged2.Length];
-                    for (int i = 0; i < seged2.Length; i++)
-                        vegig[i] = seged2[i];
-                }
-            }
-            else
-            {
-                if (seged2.Length <= 1)
-                {
-                    vegig[0] += "," + indexek;
-                }
-                else
-                {
-                    string[] segedtomb = new string[vegig.Length + seged2.Length - 1];
-                    segedtomb[0] = vegig[0] + "," + seged2[0];
-                    for (int i = 1; i < seged2.Length; i++)
-                        segedtomb[i] = vegig[0] + "," + seged2[i];
-                    int s = 1;
-                    for (int j = seged2.Length; j < segedtomb.Length; j++)
-                        segedtomb[j] = vegig[s++];
-                    vegig = segedtomb;
-                }
-            }
-        }
-
-        private void Tomb_Eredmeny_Torles(int vege)
-        {
-            if (vege == 0)
-            {
-                string[] segedtomb = new string[vegig.Length];
-                for (int i = 1; i < vegig.Length; i++)
-                    segedtomb[i - 1] = vegig[i];
-                segedtomb[segedtomb.Length - 1] = vegig[0];
-                vegig = segedtomb;
-            }
-            else
-            {
-                string[] segedtomb = new string[vegig.Length - 1];
-                for (int i = 0; i < vegig.Length - 1; i++)
-                    segedtomb[i] = vegig[i + 1];
-                vegig = segedtomb;
-            }
-        }
-        #endregion
     }
 }
