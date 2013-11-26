@@ -23,7 +23,7 @@ namespace beadando
 
         private void Rekur(int keresett_anyag)
         {
-            ////if (Ellenorzes(bejegy, keresett_anyag))
+            if (Ellenorzes(keresett_anyag))
             {
                 if (keresett_anyag != 0)
                 {
@@ -65,11 +65,11 @@ namespace beadando
                     Tomb_torol();
                 }
             }
-            /*else
+            else
             {
                 Tomb_Eredmeny_Torles(1);
-                Tomb_torol(bejegy);
-            }*/
+                Tomb_torol();
+            }
         }
 
         #region Müveletek az elágazások tömbjével
@@ -213,5 +213,27 @@ namespace beadando
             }
         }
         #endregion
+
+        private bool Ellenorzes(int keresett_anyag)
+        {
+            //egyetlen anyag sem állítható elő önmagából, egy vagy több lépésben sem
+            if (vegig != null)
+            {
+                string[] seged2 = vegig[0].Split(',');
+                if (seged2.Length != 0)
+                {
+                    for (int i = 0; i < seged2.Length; i++)
+                    {
+                        if (bejegy[Convert.ToInt32(seged2[i])].Kezdo_anyag == keresett_anyag)
+                            return false;
+                    }
+                    return true;
+                }
+                else
+                    return false;
+            }
+            else
+                return true;
+        }
     }
 }
