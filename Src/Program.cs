@@ -12,6 +12,7 @@ namespace beadando
         {
             Console.Write("A fálj elérési útvonala: ");
             Bejegyzes[] bejegy = Bejegyzes.Beolvas(Console.ReadLine());
+            Feladat_Rek fel = new Feladat_Rek(1, bejegy);
 
             Console.ReadKey();
         }
