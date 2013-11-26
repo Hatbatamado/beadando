@@ -96,7 +96,7 @@ namespace beadando
         private void Tomb_torol()
         {
             elag_t = Torol(elag_t); //töröljük az elázasás(oka)t, amin már átmentünk
-            if (elag_t.Length != 0) //ha van még elágazás, amin nem mentünk keresztül, akkor azzal folytatjuk
+            if (elag_t != null && elag_t.Length != 0) //ha van még elágazás, amin nem mentünk keresztül, akkor azzal folytatjuk
             {
                 string[] seged2 = elag_t[elag_t.Length - 1].Split(',');
                 Rekur(bejegy[Convert.ToInt32(seged2[0])].Veg_anyag);
@@ -234,6 +234,22 @@ namespace beadando
             }
             else
                 return true;
+        }
+
+        public string Kiir()
+        {
+            string vissza = "";
+            string[] elag_seged;
+            for (int i = 0; i < vegig.Length; i++)
+            {
+                elag_seged = vegig[i].Split(',');
+                for (int j = 0; j < elag_seged.Length; j++)
+                {
+                    vissza += bejegy[Convert.ToInt32(elag_seged[j])].Katalizator + " ";
+                }
+                vissza += "\n";
+            }
+            return vissza;
         }
     }
 }
