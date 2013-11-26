@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace beadando
 {
@@ -25,6 +26,22 @@ namespace beadando
             this.kezdo_anyag = kezdo_anyag;
             this.katalizator = katalizator;
             this.veg_anyag = veg_anyag;
+        }
+
+        public static Bejegyzes[] Beolvas(string eleres)
+        {
+            Bejegyzes[] bejegy;
+            StreamReader sr = new StreamReader(eleres);
+            int db = Convert.ToInt32(sr.ReadLine()); //hány bejegyzés
+            bejegy = new Bejegyzes[db];
+            string[] seged;
+            for (int i = 0; i < db; i++)
+            {
+                seged = sr.ReadLine().Split(' ');
+                bejegy[i] = new Bejegyzes(Convert.ToInt32(seged[0]), seged[1], Convert.ToInt32(seged[2]));
+            }
+            sr.Close();
+            return bejegy;
         }
     }
 }
