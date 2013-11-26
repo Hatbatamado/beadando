@@ -70,5 +70,25 @@ namespace beadando
                 Tomb_torol(bejegy);
             }*/
         }
+
+        private string[] Tomb(string[] tomb, int index, string elemek) //tömbhöz új elem hozzáadása és a végén ez a tömb használata
+        {
+            string[] segedtomb;
+            if (tomb == null)
+            {
+                segedtomb = new string[++index];
+                segedtomb[--index] = elemek.Substring(0, elemek.LastIndexOf(','));
+            }
+
+            else
+            {
+                segedtomb = new string[tomb.Length + 1];
+                for (int i = 0; i < tomb.Length; i++)
+                    segedtomb[i] = tomb[i];
+                segedtomb[tomb.Length] = elemek.Substring(0, elemek.LastIndexOf(','));
+            }
+
+            return segedtomb;
+        }
     }
 }
