@@ -236,7 +236,7 @@ namespace beadando
                 return true;
         }
 
-        public string Kiir()
+        private string Kiir()
         {
             string vissza = "";
             string[] elag_seged;

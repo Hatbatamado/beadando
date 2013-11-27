@@ -33,17 +33,20 @@ namespace beadando
 
         public static Bejegyzes[] Beolvas(string eleres)
         {
-            Bejegyzes[] bejegy;
-            StreamReader sr = new StreamReader(eleres);
-            int db = Convert.ToInt32(sr.ReadLine()); //hány bejegyzés
-            bejegy = new Bejegyzes[db];
-            string[] seged;
-            for (int i = 0; i < db; i++)
+            Bejegyzes[] bejegy = null;
+            if (File.Exists(eleres))
             {
-                seged = sr.ReadLine().Split(' ');
-                bejegy[i] = new Bejegyzes(Convert.ToInt32(seged[0]), seged[1], Convert.ToInt32(seged[2]));
+                StreamReader sr = new StreamReader(eleres);
+                int db = Convert.ToInt32(sr.ReadLine()); //hány bejegyzés
+                bejegy = new Bejegyzes[db];
+                string[] seged;
+                for (int i = 0; i < db; i++)
+                {
+                    seged = sr.ReadLine().Split(' ');
+                    bejegy[i] = new Bejegyzes(Convert.ToInt32(seged[0]), seged[1], Convert.ToInt32(seged[2]));
+                }
+                sr.Close();
             }
-            sr.Close();
             return bejegy;
         }
     }
