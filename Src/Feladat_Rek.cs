@@ -251,5 +251,49 @@ namespace beadando
             }
             return vissza;
         }
+
+        public string Megoldas()
+        {
+            string vissza = "";
+            if (vegig.Length != 0)
+            {
+                string[] seged = Kiir().Split('\n', ' ');
+                int db_meg;
+                for (int i = 0; i < seged.Length; i++)
+                {
+                    db_meg = 0;
+                    if (seged[i] != "")
+                    {
+                        for (int j = 0; j < seged.Length; j++)
+                        {
+                            if (seged[j] != "")
+                            {
+                                if (seged[i] == seged[j])
+                                    db_meg++;
+                            }
+                        }
+                        if (db_meg == 1)
+                            vissza += seged[i] + " ";
+                    }
+                    else
+                    {
+                        if (vissza != "")
+                        {
+                            if (vissza.Substring(vissza.Length - 1, 1) == " ")
+                                vissza = vissza.Substring(0, vissza.Length - 1);
+                            if (vissza.Length > 1 && vissza.Substring(vissza.Length - 1, 1) != "\n")
+                                vissza += "\n";
+                        }
+                    }
+                }
+                if (vissza.Length == 0)
+                    vissza = "EGYIK SEM KELL";
+            }
+            else
+            {
+                vissza = "NEM LEHET";
+            }
+            return vissza;
+        }
     }
 }
