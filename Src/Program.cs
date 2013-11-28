@@ -12,42 +12,59 @@ namespace beadando
         static Bejegyzes[] bejegy;
         static void Main(string[] args)
         {
-            Console.Write("A fálj elérési útvonala: ");
-            Feladat_Rek fel = null;
-            int hiba = Beolvas(Console.ReadLine());
-            switch (hiba)
+            string menu = "";
+            do
             {
-                case -1:
-                    Console.Write("A megadott fájl nem található\nIndítsa újra a programot és írjon be helyes elérési útvonalat!");
-                    break;
-                case 1:
-                    Console.Write("A fájl első sorában található bejegyzések db száma túl nagy, max 1000 lehet\nJavítsa ki a fájlt, majd indítsa újra programot!");
-                    break;
-                case 2:
-                    Console.Write("A fájlban található bejegyzések száma több, mint 1000, maximum 1000 lehet\nJavítsa ki a fájlt, majd indítsa újra programot!");
-                    break;
-                case 3:
-                    Console.Write("Az első sorban lévő db szám és a bejegyzések száma nem egyezik meg\nJavítsa ki a fájlt, majd indítsa újra programot!");
-                    break;
-                case 4:
-                    Console.Write("Valamelyik kezdő/vég anyag száma meghaladja a maximumot, a 200-at\nJavítsa ki a fájlt, majd indítsa újra programot!");
-                    break;
-                case 5:
-                    Console.Write("Van két különböző bejegyzés, ahol a kezdő és a vég anyag megegyezik\nJavítsa ki a fájlt, majd indítsa újra programot!");
-                    break;
-                case 6:
-                    Console.Write("Az egyik katalizátor nem az angol abc betűi közé tartozik\nJavítsa ki a fájlt, majd indítsa újra programot!");
-                    break;
-                case 0:
-                    Console.Write("A fájl tartalma sikeresen beolvasva\n");
-                    fel= new Feladat_Rek(1, bejegy);
-                    Console.Write("\nA feladat megoldása(i): \n" + fel.Megoldas());
-                    break;
-                default:
-                    break;
-            }            
-
-            Console.ReadKey();
+                Console.Clear();
+                Console.Write("A fálj elérési útvonala: ");
+                Feladat_Rek fel = null;
+                int hiba = Beolvas(Console.ReadLine());
+                switch (hiba)
+                {
+                    case -1:
+                        Console.Write("A megadott fájl nem található\n\nA program újraindításához írja be, hogy: vissza\nA program"
+                            +"bezárásához írja be, hogy: exit\n");
+                        menu = Console.ReadLine();
+                        break;
+                    case 1:
+                        Console.Write("A fájl első sorában található bejegyzések db száma túl nagy, max 1000 lehet\n\nJavítsa ki a fájlt, majd ha kész, akkor"
+                        +"program újraindításához írja be, hogy: vissza\nA program bezárásához írja be, hogy: exit\n");
+                        menu = Console.ReadLine();
+                        break;
+                    case 2:
+                        Console.Write("A fájlban található bejegyzések száma több, mint 1000, maximum 1000 lehet\n\nJavítsa ki a fájlt, majd ha kész, akkor"
+                        +"program újraindításához írja be, hogy: vissza\nA program bezárásához írja be, hogy: exit\n");
+                        menu = Console.ReadLine();
+                        break;
+                    case 3:
+                        Console.Write("Az első sorban lévő db szám és a bejegyzések száma nem egyezik meg\n\nJavítsa ki a fájlt, majd ha kész, akkor"
+                        +"program újraindításához írja be, hogy: vissza\nA program bezárásához írja be, hogy: exit\n");
+                        menu = Console.ReadLine();
+                        break;
+                    case 4:
+                        Console.Write("Valamelyik kezdő/vég anyag száma meghaladja a maximumot, a 200-at\n\nJavítsa ki a fájlt, majd ha kész, akkor"
+                        +"program újraindításához írja be, hogy: vissza\nA program bezárásához írja be, hogy: exit\n");
+                        menu = Console.ReadLine();
+                        break;
+                    case 5:
+                        Console.Write("Van két különböző bejegyzés, ahol a kezdő és a vég anyag megegyezik\n\nJavítsa ki a fájlt, majd ha kész, akkor"
+                        +"program újraindításához írja be, hogy: vissza\nA program bezárásához írja be, hogy: exit\n");
+                        menu = Console.ReadLine();
+                        break;
+                    case 6:
+                        Console.Write("Az egyik katalizátor nem az angol abc betűi közé tartozik\n\nJavítsa ki a fájlt, majd ha kész, akkor"
+                        +"program újraindításához írja be, hogy: vissza\nA program bezárásához írja be, hogy: exit\n");
+                        menu = Console.ReadLine();
+                        break;
+                    case 0:
+                        Console.Write("A fájl tartalma sikeresen beolvasva\n");
+                        fel = new Feladat_Rek(1, bejegy);
+                        Console.Write("\nA feladat megoldása(i): \n" + fel.Megoldas());
+                        Console.Write("\nA program újra futtatásához írja be, hogy: ujra\nA program bezárásához írja be, hogy: exit\n");
+                        menu = Console.ReadLine();
+                        break;
+                }
+            } while (menu != "exit" && menu == "vissza" || menu == "ujra");
         }
 
         static int Beolvas(string eleres)
