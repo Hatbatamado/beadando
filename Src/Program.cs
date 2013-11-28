@@ -35,6 +35,9 @@ namespace beadando
                 case 5:
                     Console.Write("Van két különböző bejegyzés, ahol a kezdő és a vég anyag megegyezik\nJavítsa ki a fájlt, majd indítsa újra programot!");
                     break;
+                case 6:
+                    Console.Write("Az egyik katalizátor nem az angol abc betűi közé tartozik\nJavítsa ki a fájlt, majd indítsa újra programot!");
+                    break;
                 case 0:
                     Console.Write("A fájl tartalma sikeresen beolvasva\n");
                     fel= new Feladat_Rek(1, bejegy);
@@ -75,16 +78,20 @@ namespace beadando
                         sr = new StreamReader(eleres);
                         sr.ReadLine();
                         int i = 0;
+                        int kezd_a, veg_a;
                         while (!sr.EndOfStream && hiba == 0)
                         {
                             seged = sr.ReadLine().Split(' ');
-                            hiba = Ellenorzes(seged[0], seged[2]);
-                            bejegy[i++] = new Bejegyzes(Convert.ToInt32(seged[0]), seged[1], Convert.ToInt32(seged[2]));
+                            kezd_a = Convert.ToInt32(seged[0]);
+                            veg_a = Convert.ToInt32(seged[2]);
+                            hiba = Ellenorzes(kezd_a, seged[1], veg_a);
+                            if (hiba == 0)
+                                bejegy[i++] = new Bejegyzes(kezd_a, seged[1], veg_a);
                         }
                         sr.Close();
                     }
                 }
-                if (bejegy.Length != 0)
+                if (bejegy.Length != 0 && hiba == 0)
                     hiba = Ellenorzes(bejegy);
             }
             return hiba;
@@ -107,10 +114,23 @@ namespace beadando
             else return 0;
         }
 
-        static int Ellenorzes(string kezd_a, string veg_a)
+        static int Ellenorzes(int kezd_a, string katalizator, int veg_a)
         {
-            if (int.Parse(kezd_a) > 200 || int.Parse(veg_a) > 200)
+            string katalizatorok = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            int db = 0;
+            char kat = Convert.ToChar(katalizator.ToUpper());
+            if (kezd_a > 200 || veg_a > 200)
                 return 4;
+            else if (kezd_a < 200 && veg_a < 200)
+            {
+                for (int i = 0; i < katalizatorok.Length; i++)
+                    if (katalizatorok[i] == kat)
+                        db++;
+                if (db == 0)
+                    return 6;
+                else
+                    return 0;
+            }
             else
                 return 0;
         }
