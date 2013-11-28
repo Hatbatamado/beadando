@@ -7,7 +7,7 @@ using System.IO;
 
 namespace beadando
 {
-    class Bejegyzes
+    class Bejegyzes //bejegyzéseket tartalmazó változóhoz szükséges osztály
     {
         int kezdo_anyag, veg_anyag;
         string katalizator;
